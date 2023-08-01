@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import thunk from 'redux-thunk';
 
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 
 import App from './App';
@@ -9,7 +10,7 @@ import './index.css';
 
 import reducer from './reducer'
 
-const store = createStore(reducer)
+const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
   <Provider store = {store}>
@@ -17,5 +18,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-
-// Giphy API Key: RSH5xuo5XmBl7hKvM0LCc1ffdTeUsOIW

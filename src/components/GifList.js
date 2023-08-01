@@ -8,9 +8,9 @@ const GifList = props => {
 
     return(<div id='gifList'>
         {
-            gifs.map(gif => {
+            gifs.map((gif, idx) => {
                 return(
-                    <Gif gif={gif} />
+                    <Gif gif={gif} key={idx}/>
                 )
             })
         }

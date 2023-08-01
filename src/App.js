@@ -1,17 +1,25 @@
-import {connect} from 'react-redux'
-import React from 'react'
-import './App.css'
+import React, { useEffect } from 'react'
+
+import { connect } from 'react-redux'
+import { getGifs } from './actions'
+
 import GifList from './components/GifList'
 import GifForm from './components/GifForm'
 
+import './App.css'
+
 function App(props) {
-  const { loading, error } = props
+  const { loading, error, getGifs, search } = props
+
+  useEffect(() => {
+    getGifs(search)
+  }, [search])
 
   return (
     <div className = 'App'>
       <h1>Search for Gifs</h1>
       <GifForm />
-      {error !== '' && <p className='error'>{error}</p className='error'>}
+      <br />{error !== '' && <p className='error'>Error: {error}</p>}
       {loading ? <h3>We are loading...</h3> : <GifList/>}
 
     </div>
@@ -21,8 +29,9 @@ function App(props) {
 const mapStateToProps = state => {
   return {
     loading: state.loading,
-    error: state.error
+    error: state.error,
+    search: state.search
   }
 }
 
-export default connect(mapStateToProps, )(App);
+export default connect(mapStateToProps, { getGifs })(App);
